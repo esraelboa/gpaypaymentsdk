@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.library'
+    id 'maven-publish'
 }
 
 android {
@@ -10,11 +11,16 @@ android {
         minSdk 24
         targetSdk 33
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -26,7 +32,24 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 }
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.github.esraelboa'       // Must match your GitHub username
+                artifactId = 'gpaypaymentsdk'
+                version = 'v1.0.0'                     // Make sure to tag this later
 
+                // You can optionally add:
+                // pom {
+                //     name = "GPayPaymentSDK"
+                //     description = "A payment WebView SDK"
+                // }
+            }
+        }
+    }
+}
 dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.7.0'
