@@ -16,6 +16,11 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -28,21 +33,31 @@ android {
     }
 }
 
-publishing {
-    publications {
-        release(MavenPublication) {
-            groupId = 'com.github.esraelboa'
-            artifactId = 'gpaypaymentsdk'
-            version = 'v1.0.0'
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                groupId = 'com.github.esraelboa'
+                artifactId = 'gpaypaymentsdk'
+                version = 'v1.0.0'
+                // use the generated AAR file
+                artifact("$buildDir/outputs/aar/${project.name}-release.aar")
+//                from components.release
+            }
+        }
+    }
+}
 
-            afterEvaluate {
+afterEvaluate {
+    publishing {
+        publications {
+            release {
                 from components.release
             }
         }
     }
 }
 dependencies {
-
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'com.google.android.material:material:1.12.0'
     testImplementation 'junit:junit:4.13.2'
