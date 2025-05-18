@@ -3,17 +3,14 @@ plugins {
 }
 
 android {
-    namespace 'com.example.gpaypaymentsdk'
-    compileSdk 34
+    namespace 'com.example.gpaypaymentsdk1'
+    compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.gpaypaymentsdk"
         minSdk 24
-        targetSdk 33
-        versionCode 1
-        versionName "1.0"
-
+        applicationId "com.example.gpaypaymentsdk1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {

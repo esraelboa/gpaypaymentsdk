@@ -15,4 +15,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "GPayPaymentSDK"
 include ':app'
-include ':gpaypaymentsdk'
